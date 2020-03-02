@@ -16,7 +16,8 @@ pipeline {
     environment {
         registry = "gitlab.ti8m.ch:5043"
         registryCredential = 'bef49692-2225-4de5-9bb5-bead5daa6664'
-        dockerTag = "${registry}/ti8m-forge-internal/sonarqube:7.9-community-ti8m"
+        dockerTag7 = "${registry}/ti8m-forge-internal/sonarqube:7.9-community-ti8m"
+        dockerTag8 = "${registry}/ti8m-forge-internal/sonarqube:8.2-community-ti8m"
     }
     triggers {
         gitlab(
@@ -26,23 +27,46 @@ pipeline {
         )
     }
     stages {
-        stage('Build image') {
+        stage('Build v7') {
             steps {
                 sh(
                         script: """
                             cd 7/community
-                            docker build -t ${dockerTag} .
+                            docker build -t ${dockerTag7} .
                         """
                 )
             }
         }
-        stage('Push image') {
+        stage('Push v7') {
             steps {
                 script {
                     docker.withRegistry("https://${registry}", "${registryCredential}") {
                         sh(
                                 script: """
-                                    docker push ${dockerTag}
+                                    docker push ${dockerTag7}
+                                """
+                        )
+                    }
+                }
+            }
+        }
+        stage('Build v8') {
+            steps {
+                sh(
+                        script: """
+                            cd 8/community
+                            docker build -t ${dockerTag8} .
+                        """
+                )
+            }
+        }
+        stage('Push v8') {
+            steps {
+                script {
+                    docker.withRegistry("https://${registry}", "${registryCredential}") {
+                        sh(
+                                script: """
+                                    docker push ${dockerTag8}
                                 """
                         )
                     }
