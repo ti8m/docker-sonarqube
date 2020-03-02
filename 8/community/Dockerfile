@@ -1,13 +1,18 @@
 FROM openjdk:11-jre-slim
+ARG SONARQUBE_GID=1030
+ARG SONARQUBE_UID=1030
 
 RUN apt-get update \
     && apt-get install -y curl unzip gnupg2 libfreetype6 libfontconfig1 \
     && rm -rf /var/lib/apt/lists/*
 
+ENV SONARQUBE_GID=${SONARQUBE_GID} \
+    SONARQUBE_UID=${SONARQUBE_UID}
+
 # Http port
 EXPOSE 9000
 
-RUN groupadd -r sonarqube && useradd -r -g sonarqube sonarqube
+RUN groupadd --gid ${SONARQUBE_GID} sonarqube && useradd --uid ${SONARQUBE_UID} -g sonarqube sonarqube
 
 ARG SONARQUBE_VERSION=8.2.0.32929
 ARG SONARQUBE_ZIP_URL=https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-${SONARQUBE_VERSION}.zip
