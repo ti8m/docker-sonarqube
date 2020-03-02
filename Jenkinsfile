@@ -14,7 +14,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '25', artifactNumToKeepStr: '5'))
     }
     environment {
-        registry = "gitlab.ti8m.ch:5043"
+        registry = "https://gitlab.ti8m.ch:5043"
         registryCredential = 'bef49692-2225-4de5-9bb5-bead5daa6664'
         dockerTag = "${registry}/ti8m-forge-internal/sonarqube:7.9-community-ti8m"
     }
