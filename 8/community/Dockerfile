@@ -44,7 +44,8 @@ RUN for server in $(shuf -e ha.pool.sks-keyservers.net \
     && rm sonarqube.zip* \
     && chown --recursive sonarqube:sonarqube "$SONARQUBE_HOME"
 
-COPY --chown=sonarqube:sonarqube run.sh "$SONARQUBE_HOME/bin/"
+COPY run.sh "$SONARQUBE_HOME/bin/"
+RUN chown sonarqube:sonarqube "$SONARQUBE_HOME/bin/run.sh"
 
 USER sonarqube
 WORKDIR $SONARQUBE_HOME
