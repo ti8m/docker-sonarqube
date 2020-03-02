@@ -1,4 +1,6 @@
 FROM openjdk:11-jre-slim
+ARG SONARQUBE_GID=1030
+ARG SONARQUBE_UID=1030
 
 RUN apt-get update \
     && apt-get install -y curl gnupg2 unzip \
@@ -9,8 +11,8 @@ ENV SONAR_VERSION=7.9.2 \
     SONARQUBE_JDBC_USERNAME=sonar \
     SONARQUBE_JDBC_PASSWORD=sonar \
     SONARQUBE_JDBC_URL="" \
-    SONARQUBE_GID=1030 \
-    SONARQUBE_UID=1030
+    SONARQUBE_GID=${SONARQUBE_GID} \
+    SONARQUBE_UID=${SONARQUBE_UID}
 
 # Http port
 EXPOSE 9000
