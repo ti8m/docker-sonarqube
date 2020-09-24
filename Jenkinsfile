@@ -17,7 +17,7 @@ pipeline {
         registry = "gitlab.ti8m.ch:5043"
         registryCredential = 'bef49692-2225-4de5-9bb5-bead5daa6664'
         dockerTag7 = "${registry}/ti8m-forge-internal/sonarqube:7.9-community-ti8m"
-        dockerTag8 = "${registry}/ti8m-forge-internal/sonarqube:8.2-community-ti8m"
+        dockerTag8 = "${registry}/ti8m-forge-internal/sonarqube:8.4-community-ti8m"
     }
     triggers {
         gitlab(
