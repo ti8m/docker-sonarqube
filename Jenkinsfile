@@ -27,29 +27,29 @@ pipeline {
         )
     }
     stages {
-        stage('Build v7') {
-            steps {
-                sh(
-                        script: """
-                            cd 7/community
-                            docker build -t ${dockerTag7} .
-                        """
-                )
-            }
-        }
-        stage('Push v7') {
-            steps {
-                script {
-                    docker.withRegistry("https://${registry}", "${registryCredential}") {
-                        sh(
-                                script: """
-                                    docker push ${dockerTag7}
-                                """
-                        )
-                    }
-                }
-            }
-        }
+//        stage('Build v7') {
+//            steps {
+//                sh(
+//                        script: """
+//                            cd 7/community
+//                            docker build -t ${dockerTag7} .
+//                        """
+//                )
+//            }
+//        }
+//        stage('Push v7') {
+//            steps {
+//                script {
+//                    docker.withRegistry("https://${registry}", "${registryCredential}") {
+//                        sh(
+//                                script: """
+//                                    docker push ${dockerTag7}
+//                                """
+//                        )
+//                    }
+//                }
+//            }
+//        }
         stage('Build v8') {
             steps {
                 sh(
